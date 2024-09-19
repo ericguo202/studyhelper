@@ -1,18 +1,42 @@
 [
     {
-        "term": "abrir",
-        "definition": "to open"
+        "term": "Empirical approach",
+        "definition": "an evidence-based method that draws on observation and experimentation. "
     },
     {
-        "term": "cerrar",
-        "definition": "to close"
+        "term": "Critical thinking",
+        "definition": " thinking that does not automatically accept arguments and conclusions. Rather, it examines assumptions, appraises the source, discerns hidden biases, evaluates evidence, and assesses conclusions."
     },
     {
-        "term": "tocar",
-        "definition": "to touch"
+        "term": "Hindsight bias",
+        "definition": " the tendency to believe, after learning an outcome, that one would have foreseen it. (I-knew-it-all-along phenomenon)"
     },
     {
-        "term": "venir",
-        "definition": "to bring"
+        "term": "Peer reviewers",
+        "definition": "scientific experts who evaluate a research article\u2019s theory, originality, and accuracy."
+    },
+    {
+        "term": "theory",
+        "definition": "An explanation using an integrated set of principles that organizes observations and predicts behaviors or events."
+    },
+    {
+        "term": "hypothesis",
+        "definition": "a testable prediction, often implied by a theory"
+    },
+    {
+        "term": "Operation definition",
+        "definition": "a carefully worded statement of the exact procedures (operations) used in a research study. Also known as operationalization. Ex. Human intelligence may be operationally defined as the score received on an intelligence test."
+    },
+    {
+        "term": "replication",
+        "definition": "Repeating the basis of a research study, usually with different participants in different situations, to see if the basic finding can be reproduced."
+    },
+    {
+        "term": "Confirmation bias",
+        "definition": "the tendency to favor information that supports one's preexisting beliefs while disregarding evidence that contradicts them."
+    },
+    {
+        "term": "overconfidence",
+        "definition": "the excessive belief in one\u2019s abilities, knowledge, or judgments, often leading to erroneous conclusions."
     }
 ]

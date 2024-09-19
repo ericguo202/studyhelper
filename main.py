@@ -21,7 +21,6 @@ def save_to_json(data, filename):
 def add_terms():
     global terms
     terms = read_from_json("terms.json") # converts the terms json file into a list for the script to work with
-    print(terms)
     term = input("Term name: ")
     definition = input(f"Definition of {term}: ")
 
@@ -35,16 +34,12 @@ def list_terms():
     if len(terms) == 0:
         print("No terms yet.")
     for term in terms:
-        print(f"{term['term']}: {term['definition']}")
+        print(f"{term['term']}: {term['definition']}", "\n --------------------------------")
     welcome_screen()
 
-def begin_practice():
+def write_mode(objects_array): # simulated quizlet write mode
     global score
     global num_questions
-    global terms
-
-    terms = read_from_json("terms.json")
-    objects_array = terms
     rand_num = random.randint(0, len(objects_array) - 1)
     print(objects_array[rand_num]['definition'])
     name = input("What is this term? Type 'stop' to exit the program. ")
@@ -63,6 +58,56 @@ def begin_practice():
         num_questions += 1
         print(f"Your accuracy is {score / num_questions * 100}%")
         begin_practice()
+
+def get_random_choice(objects_array, index1, index2, index3): # necessary for MCQ portion
+    # print(f"The first index is {index1}")
+    # print(f"The 2nd index is {index2}")
+    # print(f"The 3rd index is {index3}")
+    rand = random.randint(0, len(objects_array) - 1)
+    print(f"the random index we got is {rand}")
+    if ((rand != index1) and (rand != index2) and (rand != index3)):
+        print(rand)
+        return rand
+    else:
+        print(f"Duplicated index {rand}")
+        return get_random_choice(objects_array, index1, index2, index3)
+
+def multiple_choice(objects_array): # simulates quizlet MCQ
+    global score
+    global num_questions
+    rand_num = random.randint(0, len(objects_array) - 1)
+    print(objects_array[rand_num]['term'])
+    # MCQ randomness logic here
+    # step 1: correct definition
+    correct_def = objects_array[rand_num]['definition']
+    # step 2: get incorrect answers
+    wrong_index1 = get_random_choice(objects_array, rand_num, -1, -1)
+    wrong_index2 = get_random_choice(objects_array, rand_num, wrong_index1, -1)
+    wrong_index3 = get_random_choice(objects_array, rand_num, wrong_index1, wrong_index2)
+
+    answers = [correct_def, objects_array[wrong_index1]['definition'], objects_array[wrong_index2]['definition'], objects_array[wrong_index3]['definition']]
+    random.shuffle(answers)
+    new_answers = [] # new list for making choosing easier - abcd method
+    new_answers.append({'index': 'a', 'answer': answers[0]}) 
+    new_answers.append({'index': 'b', 'answer': answers[1]})
+    new_answers.append({'index': 'c', 'answer': answers[2]})
+    new_answers.append({'index': 'd', 'answer': answers[3]})
+    for answer in new_answers:
+        print(f"{answer['index']}). {answer['answer']}")
+
+    score += 1
+    num_questions +=1
+    # begin_practice()
+
+def begin_practice():
+    global terms
+    terms = read_from_json("terms.json")
+    num = random.randint(0, 0)
+    print(num)
+    if num == 1:
+        write_mode(terms)
+    else:
+        multiple_choice(terms)
 
 def welcome_screen():
     choice = input("To add terms, type 'a'. To view a list of the terms, type 'b'. To begin practice, type 'c'. To delete all terms, type 'd'. To quit, type 'q': ")
