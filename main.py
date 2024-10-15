@@ -1,6 +1,8 @@
 import random
 import sys
 import json
+import os
+import platform
 
 # variables
 score = 0
@@ -48,16 +50,17 @@ def write_mode(objects_array): # simulated quizlet write mode
         print(f"Your accuracy for this game is {score / num_questions * 100}%. You correctly answered {score} out of {num_questions} questions")
         sys.exit()
 
+    clear_console() # improve UI
     if name.lower() == objects_array[rand_num]['term'].lower(): 
         print("You are correct!")
         score += 1
         num_questions += 1
-        print(f"Your accuracy is {score / num_questions * 100}%")
+        print(f"Your accuracy is {score / num_questions * 100}% \n")
         begin_practice()
     else:
         print(f"Incorrect. The correct answer was {objects_array[rand_num]['term']}")
         num_questions += 1
-        print(f"Your accuracy is {score / num_questions * 100}%")
+        print(f"Your accuracy is {score / num_questions * 100}% \n")
         begin_practice()
 
 def get_random_choice(objects_array, index1, index2, index3): # necessary for MCQ portion
@@ -78,7 +81,7 @@ def get_matching_answer(answers_list):
     choice = input("(Press q to quit) Which letter choice is correct? ")
 
     for answer in answers_list:
-        if answer['index'] == choice:
+        if answer['index'] == choice.lower():
             return answer
         if choice.lower() == "q":
             sys.exit()
@@ -109,20 +112,30 @@ def multiple_choice(objects_array): # simulates quizlet MCQ
     for answer in new_answers:
         print(f"{answer['index']}). {answer['answer']}")
 
-     # checks if choice is correct
+    # checks if choice is correct
     if get_matching_answer(new_answers)['correct'] == True: 
         score += 1 # only if right answer
+        clear_console() # improve UI
         print("Correct!")
     else:
+        clear_console() # improve UI
         print(f"Incorrect. The correct answer was {correct_def}")
 
     num_questions +=1 # basically catch all
-    print(f"Your accuracy is {score / num_questions * 100}%")
+    print(f"Your accuracy is {score / num_questions * 100}% \n")
     begin_practice()
+
+# clears console for better UI
+def clear_console():
+    if platform.system() == "Windows":
+        os.system("cls")
+    if platform.system() == "Darwin" or platform.system() == "Linux": # Darwin is MacOS
+        os.system("clear")
 
 def begin_practice():
     global terms
     terms = read_from_json("terms.json")
+
     if len(terms) >= 4:
         num = random.randint(0, 1)
         if num == 1:
